@@ -4,7 +4,7 @@
   "description": "exeercice sur les api avec nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon .\\index.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/MrZyr0/NodeJS_API-B2-YNOV#readme",
   "dependencies": {
-    "readline-sync": "^1.4.9",
-    "request-json": "^0.6.4"
+    "json-find": "^2.0.4",
+    "nodemon": "^1.19.0",
+    "request": "^2.88.0"
   }
 }
