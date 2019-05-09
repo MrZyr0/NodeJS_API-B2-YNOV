@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/MrZyr0/NodeJS_API-B2-YNOV/issues"
   },
-  "homepage": "https://github.com/MrZyr0/NodeJS_API-B2-YNOV#readme"
+  "homepage": "https://github.com/MrZyr0/NodeJS_API-B2-YNOV#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.9",
+    "request-json": "^0.6.4"
+  }
 }
