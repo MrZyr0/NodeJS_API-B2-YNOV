@@ -1,0 +1,24 @@
+{
+  "name": "nodeapi",
+  "version": "1.0.0",
+  "description": "exeercice sur les api avec nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrZyr0/NodeJS_API-B2-YNOV.git"
+  },
+  "keywords": [
+    "js",
+    "node",
+    "npm"
+  ],
+  "author": "Zyr0",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrZyr0/NodeJS_API-B2-YNOV/issues"
+  },
+  "homepage": "https://github.com/MrZyr0/NodeJS_API-B2-YNOV#readme"
+}
