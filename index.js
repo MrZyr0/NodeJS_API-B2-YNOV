@@ -1,7 +1,6 @@
 'user strict'
 
 const readline = require('readline')
-const readlineSync = require('readline-sync')
 const request = require('request')
 const URLusers = 'http://jsonplaceholder.typicode.com/users'
 const URLposts = 'http://jsonplaceholder.typicode.com/posts'
@@ -73,5 +72,69 @@ function runWithCallback()
     })
 }
 
+function runWithPromise()
+{
+    const apiRequest = (userName) => {
+        return new Promise ((resolve, reject) => {
+            request.get(URLusers, function (error, response, body) {
+                if (response.statusCode != 200) { reject( new Error('An error has occurred in the API call : ' + error) ) }
 
-runWithCallback()
+                users = JSON.parse(body)
+
+                user = users.find(function(element){ return element.name == userName })
+                if (!user) { reject('User doesnn\'t exist or the username is invalid') }
+                resolve(user)
+            })
+        }).then((user) => {
+            return new Promise((resolve, reject) => {
+                request.get(URLposts, function (error, response, body) {
+                    if (response.statusCode != 200) { reject( new Error('An error has occurred in the API call : ' + error) ) }
+
+                    posts = JSON.parse(body)
+                    userPosts = posts.filter(function (element) { return element.userId == user.id })
+                    if (!userPosts) { reject('No posts found for this user') }
+
+                    resolve( getRandomInt(userPosts.length - 1) )
+                })
+            })
+        }).then((randomPostId) => new Promise ((resolve, reject) => {
+            request(`${URLposts}/${randomPostId}/comments`, (error, response, body) => {
+                if (response.statusCode !== 200) { reject( new Error('An error has occurred in the API call : ' + error) ) }
+
+                comments = JSON.parse(body);
+
+                const commentsOfPost = comments.filter(function (element) {
+                    return element.postId == randomPostId;
+                })
+
+                const randomCommentId = getRandomInt(commentsOfPost.length - 1)
+
+                const comment = commentsOfPost[randomCommentId].body
+
+                resolve(comment)
+            })
+        }))
+    }
+
+    rl.question('Username (Leanne Graham) : ', function(answer) {
+
+        let userName = answer
+
+        console.log('\n\t' + 'Hi ' + userName + '!' + '\n')
+        console.log('\t' + 'Here is a comment from one of your messages :')
+
+        // console.log(apiRequest)
+
+        apiRequest(userName).then(function (value) {
+            console.log(value)
+        })
+        rl.close()
+    })
+}
+
+
+// runWithCallback()
+runWithPromise()
+// TODO: try to use await() and async() to do the same thing
+
+
